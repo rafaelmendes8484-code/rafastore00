@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RafaStore00 — Catálogo</title>
+  <meta name="description" content="Catálogo de assinaturas e recargas. Atendimento rápido no WhatsApp." />
+
+  <style>
+    :root{
+      --bg:#07080c;
+      --card:#0e1220;
+      --muted:#a7b0c0;
+      --text:#eef2ff;
+      --line:rgba(255,255,255,.09);
+      --glass:rgba(255,255,255,.05);
+      --brand1:#ff3b30;
+      --brand2:#ffb020;
+      --ok:#2dd4bf;
+      --radius:18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 15% 8%, rgba(255,59,48,.22), transparent 60%),
+        radial-gradient(800px 520px at 82% 20%, rgba(255,176,32,.18), transparent 55%),
+        linear-gradient(180deg, #05060a, var(--bg));
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px}
+    .top{
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .brand{display:flex;flex-direction:column;gap:6px}
+    .brand h1{margin:0;font-size:22px;letter-spacing:.2px}
+    .brand p{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
+    .meta{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted); font-size:13px;
+    }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text); text-decoration:none;
+      font-weight:800; font-size:14px;
+      transition:transform .12s ease, background .12s ease, border .12s ease, opacity .12s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
+    .btn.primary{
+      border-color:rgba(255,59,48,.55);
+      background:linear-gradient(135deg, rgba(255,59,48,.95), rgba(255,176,32,.9));
+      color:#0b0c10;
+    }
+    .btn.ghost{background:transparent}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      backdrop-filter: blur(8px);
+    }
+    .input{
+      flex:1 1 260px;
+      display:flex; align-items:center; gap:10px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px 12px;
+      background:rgba(0,0,0,.18);
+    }
+    .input input{
+      width:100%;
+      border:0; outline:0;
+      background:transparent;
+      color:var(--text);
+      font-size:14px;
+    }
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      transition:.12s ease;
+      user-select:none;
+    }
+    .chip:hover{background:rgba(255,255,255,.06)}
+    .chip.active{
+      color:#0b0c10;
+      border-color:rgba(255,176,32,.55);
+      background:linear-gradient(135deg, rgba(255,176,32,.95), rgba(255,59,48,.85));
+    }
+
+    .section{
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      backdrop-filter: blur(8px);
+    }
+    .sectionHeader{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .sectionHeader h2{margin:0;font-size:16px}
+    .sectionHeader .hint{margin:0;color:var(--muted);font-size:12px}
+    .catalog{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+    }
+    @media (max-width:980px){.catalog{grid-template-columns:repeat(2, minmax(0, 1fr));}}
+    @media (max-width:620px){.catalog{grid-template-columns:1fr;}}
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(255,255,255,.02));
+      padding:14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 180px at 20% 10%, rgba(255,59,48,.18), transparent 55%),
+        radial-gradient(420px 180px at 90% 40%, rgba(255,176,32,.14), transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .card > *{position:relative; z-index:1}
+
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .name{font-weight:900;font-size:14px;letter-spacing:.15px}
+    .price{
+      font-weight:950;
+      font-size:15px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      white-space:nowrap;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      background:rgba(45,212,191,.12);
+      border:1px solid rgba(45,212,191,.22);
+      color:#bff7ee;
+      font-size:12px;
+      font-weight:900;
+      width:max-content;
+    }
+    .desc{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+    .miniActions{display:flex;gap:10px;flex-wrap:wrap}
+    .miniBtn{
+      flex:1;
+      padding:11px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:900;
+      font-size:13px;
+      text-decoration:none;
+      text-align:center;
+      transition:.12s ease;
+    }
+    .miniBtn:hover{background:rgba(255,255,255,.06); transform:translateY(-1px)}
+    .miniBtn.primary{
+      color:#0b0c10;
+      border-color:rgba(255,59,48,.55);
+      background:linear-gradient(135deg, rgba(255,59,48,.95), rgba(255,176,32,.9));
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width:860px){.twoCol{grid-template-columns:1fr}}
+
+    .recTable{
+      width:100%;
+      border-collapse:collapse;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(0,0,0,.12);
+    }
+    .recTable th,.recTable td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      font-size:13px;
+    }
+    .recTable th{
+      text-align:left;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.45px;
+    }
+    .right{text-align:right}
+    .highlight{
+      font-weight:950;
+      color:#0b0c10;
+      background:linear-gradient(135deg, rgba(255,176,32,.95), rgba(255,59,48,.88));
+      border-radius:999px;
+      padding:6px 10px;
+      display:inline-block;
+    }
+
+    .banner{
+      margin-top:12px;
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:12px 14px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      background:rgba(255,255,255,.02);
+    }
+
+    .footer{margin:16px 0 80px 0;color:var(--muted);font-size:12px;text-align:center}
+
+    /* WhatsApp floating button */
+    .waFloat{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      text-decoration:none;
+    }
+    .waBubble{
+      display:none;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.35);
+      color:var(--text);
+      font-weight:900;
+      font-size:13px;
+      backdrop-filter: blur(8px);
+    }
+    .waBtn{
+      width:54px;height:54px;border-radius:18px;
+      border:1px solid rgba(255,59,48,.45);
+      background:linear-gradient(135deg, rgba(255,59,48,.95), rgba(255,176,32,.9));
+      box-shadow: 0 16px 45px rgba(0,0,0,.45);
+      display:grid;place-items:center;
+      color:#0b0c10;
+      font-size:24px;
+      font-weight:950;
+    }
+    @media (min-width:720px){.waBubble{display:block}}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- HEADER -->
+    <header class="top">
+      <div class="brand">
+        <h1>RafaStore00</h1>
+        <p>Catálogo rápido • Assinaturas + Recargas • Atendimento no WhatsApp</p>
+        <div class="meta">
+          <span class="pill">📷 Instagram: <b>@rafastore00__</b></span>
+          <span class="pill">⚡ Resposta rápida</span>
+          <span class="pill">✅ Valores no PV</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="https://wa.me/5561996144648?text=Oi!%20Quero%20ver%20o%20cat%C3%A1logo%20%F0%9F%94%A5" target="_blank" rel="noreferrer">
+          📲 Chamar no WhatsApp
+        </a>
+        <a class="btn ghost" href="https://www.instagram.com/rafastore00__/" target="_blank" rel="noreferrer">
+          📷 Abrir Instagram
+        </a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="input">
+          🔎
+          <input id="search" type="search" placeholder="Buscar: Netflix, YouTube, Canva, ChatGPT..." />
+        </div>
+        <div class="chips" id="chips">
+          <div class="chip active" data-filter="todos">✨ Todos</div>
+          <div class="chip" data-filter="assinaturas">🎬 Assinaturas</div>
+          <div class="chip" data-filter="apps">🎨 Apps</div>
+          <div class="chip" data-filter="recargas">📱 Recargas</div>
+        </div>
+      </div>
+
+      <!-- CATALOGO -->
+      <section class="section" id="secCatalog">
+        <div class="sectionHeader">
+          <div>
+            <h2>🛒 Catálogo</h2>
+            <p class="hint">Clique em “Comprar” para abrir o WhatsApp com a mensagem pronta.</p>
+          </div>
+          <div class="pill">✨ Tem mais opções e novidades chegando — chama no PV ✅🔥</div>
+        </div>
+
+        <div class="catalog" id="catalog">
+          <!-- ASSINATURAS -->
+          <article class="card item" data-cat="assinaturas" data-name="Netflix Premium" data-price="15">
+            <div class="row">
+              <div class="name">🍿 Netflix Premium</div>
+              <div class="price">R$ 15,00</div>
+            </div>
+            <div class="badge">✅ Entrega rápida</div>
+            <p class="desc">Plano premium com qualidade máxima. Chame no WhatsApp pra pegar.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Netflix%20Premium%20por%20R%24%2015%2C00%20%F0%9F%8D%BF">
+                 🛒 Comprar
+              </a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20tirar%20d%C3%BAvidas%20sobre%20Netflix%20Premium%20%F0%9F%93%A9">
+                 💬 Dúvidas
+              </a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="Disney+" data-price="14">
+            <div class="row"><div class="name">🏰 Disney+</div><div class="price">R$ 14,00</div></div>
+            <div class="badge">✅ Suporte</div>
+            <p class="desc">Filmes e séries. Chama no PV e já ativa.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Disney%2B%20por%20R%24%2014%2C00%20%F0%9F%8F%B0">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Tenho%20d%C3%BAvidas%20sobre%20Disney%2B%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="ChatGPT" data-price="25">
+            <div class="row"><div class="name">🤖 ChatGPT (seu e-mail)</div><div class="price">R$ 25,00</div></div>
+            <div class="badge">⚡ Rápido</div>
+            <p class="desc">Acesso no seu e-mail. Chama no WhatsApp pra pegar.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20ChatGPT%20(no%20meu%20e-mail)%20por%20R%24%2025%2C00%20%F0%9F%A4%96">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20saber%20como%20funciona%20o%20ChatGPT%20no%20meu%20e-mail%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="HBO Max" data-price="10">
+            <div class="row"><div class="name">🎬 HBO Max</div><div class="price">R$ 10,00</div></div>
+            <div class="badge">✅ Ativação</div>
+            <p class="desc">Plano com ótimo custo-benefício. Chama no PV.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20HBO%20Max%20por%20R%24%2010%2C00%20%F0%9F%8E%AC">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Tenho%20d%C3%BAvidas%20sobre%20HBO%20Max%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="Prime Video" data-price="10">
+            <div class="row"><div class="name">📦 Prime Video</div><div class="price">R$ 10,00</div></div>
+            <div class="badge">✅ Suporte</div>
+            <p class="desc">Filmes e séries. Chama no WhatsApp.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Prime%20Video%20por%20R%24%2010%2C00%20%F0%9F%93%A6">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=D%C3%BAvidas%20sobre%20Prime%20Video%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="Paramount+" data-price="10">
+            <div class="row"><div class="name">⭐ Paramount+</div><div class="price">R$ 10,00</div></div>
+            <div class="badge">✅ Entrega rápida</div>
+            <p class="desc">Ativação rápida. Chama no PV.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Paramount%2B%20por%20R%24%2010%2C00%20%E2%AD%90">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Tenho%20d%C3%BAvidas%20sobre%20Paramount%2B%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="YouTube Premium" data-price="10">
+            <div class="row"><div class="name">▶️ YouTube Premium (seu e-mail)</div><div class="price">R$ 10,00</div></div>
+            <div class="badge">⚡ Rápido</div>
+            <p class="desc">Sem anúncios + música. Chama no WhatsApp.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20YouTube%20Premium%20(no%20meu%20e-mail)%20por%20R%24%2010%2C00%20%E2%96%B6%EF%B8%8F">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20saber%20como%20funciona%20YouTube%20Premium%20no%20meu%20e-mail%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="Crunchyroll" data-price="7">
+            <div class="row"><div class="name">🍥 Crunchyroll</div><div class="price">R$ 7,00</div></div>
+            <div class="badge">✅ Ativação</div>
+            <p class="desc">Animes e catálogo completo. Chama no PV.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Crunchyroll%20por%20R%24%207%2C00%20%F0%9F%8D%A5">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=D%C3%BAvidas%20sobre%20Crunchyroll%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="assinaturas" data-name="Globoplay" data-price="10">
+            <div class="row"><div class="name">🇧🇷 Globoplay</div><div class="price">R$ 10,00</div></div>
+            <div class="badge">✅ Suporte</div>
+            <p class="desc">Conteúdos nacionais. Chama no WhatsApp.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Globoplay%20por%20R%24%2010%2C00%20%F0%9F%87%A7%F0%9F%87%B7">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=D%C3%BAvidas%20sobre%20Globoplay%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <!-- APPS -->
+          <article class="card item" data-cat="apps" data-name="CapCut Pro" data-price="15">
+            <div class="row"><div class="name">✂️ CapCut Pro</div><div class="price">R$ 15,00</div></div>
+            <div class="badge">⚡ Ativação</div>
+            <p class="desc">Edição PRO pra vídeos. Chama no PV.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20CapCut%20Pro%20por%20R%24%2015%2C00%20%E2%9C%82%EF%B8%8F">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=D%C3%BAvidas%20sobre%20CapCut%20Pro%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <article class="card item" data-cat="apps" data-name="Canva" data-price="8">
+            <div class="row"><div class="name">🎨 Canva</div><div class="price">R$ 8,00</div></div>
+            <div class="badge">✅ Suporte</div>
+            <p class="desc">Pra criar artes top. Chame no WhatsApp.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20Canva%20por%20R%24%208%2C00%20%F0%9F%8E%A8">🛒 Comprar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=D%C3%BAvidas%20sobre%20Canva%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </article>
+
+          <!-- placeholder -->
+          <article class="card item" data-cat="apps" data-name="Mais opções" data-price="0">
+            <div class="row"><div class="name">✨ Mais opções</div><div class="price">PV</div></div>
+            <div class="badge">🔥 Novidades</div>
+            <p class="desc">Tem mais serviços e combos. Chama no PV que eu te passo.</p>
+            <div class="miniActions">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Oi!%20Quero%20ver%20as%20novidades%20e%20outros%20planos%20%F0%9F%94%A5">📲 Chamar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://www.instagram.com/rafastore00__/">📷 Instagram</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- RECARGAS -->
+      <section class="section" id="secRecargas">
+        <div class="sectionHeader">
+          <div>
+            <h2>📱 Recargas mais baratas</h2>
+            <p class="hint">Selecione a operadora e chame no WhatsApp pra fazer na hora.</p>
+          </div>
+          <a class="btn primary" target="_blank" rel="noreferrer"
+             href="https://wa.me/5561996144648?text=Oi!%20Quero%20fazer%20uma%20recarga%20agora%20%F0%9F%93%B1">
+            ⚡ Fazer recarga agora
+          </a>
+        </div>
+
+        <div class="twoCol">
+          <div class="card" style="box-shadow:none">
+            <div class="row">
+              <div class="name">🔴 TIM</div>
+              <div class="badge">💸 Mais barato</div>
+            </div>
+            <table class="recTable">
+              <thead><tr><th>Valor</th><th class="right">Você paga</th></tr></thead>
+              <tbody>
+                <tr><td>R$ 15</td><td class="right"><span class="highlight">R$ 10</span></td></tr>
+                <tr><td>R$ 20</td><td class="right"><span class="highlight">R$ 15</span></td></tr>
+                <tr><td>R$ 30</td><td class="right"><span class="highlight">R$ 20</span></td></tr>
+                <tr><td>R$ 40</td><td class="right"><span class="highlight">R$ 25</span></td></tr>
+                <tr><td>R$ 50</td><td class="right"><span class="highlight">R$ 30</span></td></tr>
+                <tr><td>R$ 60</td><td class="right"><span class="highlight">R$ 35</span></td></tr>
+                <tr><td>R$ 100</td><td class="right"><span class="highlight">R$ 50</span></td></tr>
+              </tbody>
+            </table>
+            <div class="miniActions" style="margin-top:12px">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20recarga%20TIM%20%F0%9F%94%B4%20Qual%20valor%20tem%20dispon%C3%ADvel%3F">📲 Chamar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Como%20funciona%20a%20recarga%20TIM%3F%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </div>
+
+          <div class="card" style="box-shadow:none">
+            <div class="row">
+              <div class="name">🔵 VIVO</div>
+              <div class="badge">⚡ Rápido</div>
+            </div>
+            <table class="recTable">
+              <thead><tr><th>Valor</th><th class="right">Você paga</th></tr></thead>
+              <tbody>
+                <tr><td>R$ 15</td><td class="right"><span class="highlight">R$ 12</span></td></tr>
+                <tr><td>R$ 20</td><td class="right"><span class="highlight">R$ 16</span></td></tr>
+                <tr><td>R$ 25</td><td class="right"><span class="highlight">R$ 20</span></td></tr>
+                <tr><td>R$ 30</td><td class="right"><span class="highlight">R$ 22</span></td></tr>
+              </tbody>
+            </table>
+            <div class="miniActions" style="margin-top:12px">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20recarga%20VIVO%20%F0%9F%94%B5%20Qual%20valor%20tem%20dispon%C3%ADvel%3F">📲 Chamar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Como%20funciona%20a%20recarga%20VIVO%3F%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </div>
+
+          <div class="card" style="box-shadow:none">
+            <div class="row">
+              <div class="name">🟡 CLARO</div>
+              <div class="badge">💎 Promo</div>
+            </div>
+            <table class="recTable">
+              <thead><tr><th>Valor</th><th class="right">Você paga</th></tr></thead>
+              <tbody>
+                <tr><td>R$ 20</td><td class="right"><span class="highlight">R$ 15</span></td></tr>
+                <tr><td>R$ 25</td><td class="right"><span class="highlight">R$ 20</span></td></tr>
+                <tr><td>R$ 30</td><td class="right"><span class="highlight">R$ 25</span></td></tr>
+                <tr><td>R$ 40</td><td class="right"><span class="highlight">R$ 30</span></td></tr>
+                <tr><td>R$ 50</td><td class="right"><span class="highlight">R$ 35</span></td></tr>
+                <tr><td>R$ 100</td><td class="right"><span class="highlight">R$ 50</span></td></tr>
+              </tbody>
+            </table>
+            <div class="miniActions" style="margin-top:12px">
+              <a class="miniBtn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Quero%20recarga%20CLARO%20%F0%9F%9F%A1%20Qual%20valor%20tem%20dispon%C3%ADvel%3F">📲 Chamar</a>
+              <a class="miniBtn" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Como%20funciona%20a%20recarga%20CLARO%3F%20%F0%9F%93%A9">💬 Dúvidas</a>
+            </div>
+          </div>
+
+          <div class="card" style="box-shadow:none">
+            <div class="row">
+              <div class="name">✅ Como funciona</div>
+              <div class="badge">🔒 Seguro</div>
+            </div>
+            <p class="desc" style="font-size:13px">
+              1) Você chama no WhatsApp<br/>
+              2) Diz qual serviço/recarga quer<br/>
+              3) Eu passo o passo a passo e finalizamos ✅
+            </p>
+            <div class="banner">
+              <span>✨ Tem mais opções e combos.</span>
+              <a class="btn primary" target="_blank" rel="noreferrer"
+                 href="https://wa.me/5561996144648?text=Oi!%20Quero%20ver%20todos%20os%20planos%20e%20combos%20%F0%9F%94%A5">Chamar no PV</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">© RafaStore00 • @rafastore00__</div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Floating -->
+  <a class="waFloat" href="https://wa.me/5561996144648?text=Oi!%20Quero%20comprar%20agora%20%F0%9F%94%A5" target="_blank" rel="noreferrer">
+    <span class="waBubble">Chamar no WhatsApp</span>
+    <span class="waBtn">💬</span>
+  </a>
+
+  <script>
+    const search = document.getElementById("search");
+    const chips = Array.from(document.querySelectorAll(".chip"));
+    const items = Array.from(document.querySelectorAll(".item"));
+
+    let activeFilter = "todos";
+
+    function apply(){
+      const q = (search.value || "").toLowerCase().trim();
+
+      items.forEach(card=>{
+        const cat = card.getAttribute("data-cat");
+        const name = (card.getAttribute("data-name") || "").toLowerCase();
+
+        const matchCat = (activeFilter === "todos") || (cat === activeFilter);
+        const matchText = !q || name.includes(q);
+
+        card.style.display = (matchCat && matchText) ? "" : "none";
+      });
+
+      // Se o filtro for recargas, rola pra seção recargas
+      if(activeFilter === "recargas"){
+        document.getElementById("secRecargas").scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    }
+
+    chips.forEach(ch=>{
+      ch.addEventListener("click", ()=>{
+        chips.forEach(c=>c.classList.remove("active"));
+        ch.classList.add("active");
+        activeFilter = ch.dataset.filter;
+        apply();
+      });
+    });
+
+    search.addEventListener("input", apply);
+  </script>
+</body>
+</html>
+
