@@ -229,7 +229,47 @@
 
   <script>
     const WHATS = "5561996144648";
-    const products = [{"cat": "Assinaturas", "name": "Netflix Premium", "price": "15,00", "note": "Acesso por tela", "msg": "Quero Netflix Premium por R$ 15,00 🍿"}, {"cat": "Assinaturas", "name": "Disney+ Premium", "price": "35,00", "note": "Conta somente sua", "msg": "Quero Disney+ Premium (conta somente minha) por R$ 35,00 🏰"}, {"cat": "Assinaturas", "name": "YouTube Premium", "price": "10,00", "note": "No seu e-mail", "msg": "Quero YouTube Premium (no meu e-mail) por R$ 10,00 ▶️"}, {"cat": "Assinaturas", "name": "HBO Max", "price": "7,50", "note": "Acesso por tela", "msg": "Quero HBO Max por R$ 7,50 🎬"}, {"cat": "Assinaturas", "name": "Prime Video", "price": "7,50", "note": "Acesso por tela", "msg": "Quero Prime Video por R$ 7,50 📦"}, {"cat": "Assinaturas", "name": "Paramount+", "price": "7,50", "note": "Acesso por tela", "msg": "Quero Paramount+ por R$ 7,50 ⭐"}, {"cat": "Assinaturas", "name": "Crunchyroll", "price": "7,00", "note": "Acesso por tela", "msg": "Quero Crunchyroll por R$ 7,00 🍥"}, {"cat": "Assinaturas", "name": "Globoplay (Básico)", "price": "10,00", "note": "Conta somente sua", "msg": "Quero Globoplay Básico (conta somente minha) por R$ 10,00 🇧🇷"}, {"cat": "Assinaturas", "name": "Globoplay Premium", "price": "15,00", "note": "Conta somente sua", "msg": "Quero Globoplay Premium (conta somente minha) por R$ 15,00 🇧🇷"}, {"cat": "Assinaturas", "name": "Globoplay Premium + Telecine", "price": "20,00", "note": "Conta somente sua", "msg": "Quero Globoplay Premium + Telecine por R$ 20,00 🎞️"}, {"cat": "Assinaturas", "name": "Tela Globoplay + Canais", "price": "7,00", "note": "Acesso por tela", "msg": "Quero Tela Globoplay + Canais por R$ 7,00 📺"}, {"cat": "Assinaturas", "name": "Apple TV+", "price": "12,00", "note": "Acesso por tela", "msg": "Quero Apple TV+ por R$ 12,00 🍏"}, {"cat": "Ferramentas", "name": "ChatGPT Premium", "price": "25,00", "note": "No seu e-mail • prazo máx. 24h", "msg": "Quero ChatGPT Premium (no meu e-mail) por R$ 25,00 🤖"}, {"cat": "Ferramentas", "name": "Gemini Premium", "price": "25,00", "note": "No seu e-mail", "msg": "Quero Gemini Premium (no meu e-mail) por R$ 25,00 ✨"}, {"cat": "Ferramentas", "name": "Canva", "price": "5,00", "note": "Acesso individual", "msg": "Quero Canva por R$ 5,00 🎨"}, {"cat": "Ferramentas", "name": "Canva Pro Vitalício", "price": "30,00", "note": "No seu e-mail", "msg": "Quero Canva Pro Vitalício (no meu e-mail) por R$ 30,00 🎨"}, {"cat": "Ferramentas", "name": "CapCut Pro", "price": "15,00", "note": "Acesso individual", "msg": "Quero CapCut Pro por R$ 15,00 ✂️"}, {"cat": "Ferramentas", "name": "Pacote Office (Convite)", "price": "15,00", "note": "Convite", "msg": "Quero Pacote Office (convite) por R$ 15,00 🖥️"}, {"cat": "Música", "name": "Deezer (Convite)", "price": "8,00", "note": "Convite", "msg": "Quero Deezer (convite) por R$ 8,00 🎵"}, {"cat": "TV & IPTV", "name": "Claro TV (Tela) + Premiere + Telecine + 12 ADC", "price": "16,00", "note": "Tela Claro TV", "msg": "Quero Claro TV (tela) Premiere + Telecine + 12 ADC por R$ 16,00 📺"}, {"cat": "TV & IPTV", "name": "IPTV", "price": "15,00", "note": "Roku • Samsung • LG • AOC • Android • teste grátis 4h", "msg": "Quero IPTV por R$ 15,00 (teste grátis 4h) ⚡"}];
+    const products = [{"cat": "Assinaturas", "name": "Netflix Premium", "price": "15,00", "note": "Acesso por tela", "msg": "Quero Netflix Premium por R$ 15,00 🍿"}, {"cat": "Assinaturas", "name": "Disney+ Premium", "price": "35,00", "note": "Conta somente sua", "msg": "Quero Disney+ Premium (conta somente minha) por R$ 35,00 🏰"}, {"cat": "Assinaturas", "name": "YouTube Premium", "price": "10,00", "note": "No seu e-mail", "msg": "Quero YouTube Premium (no meu e-mail) por R$ 10,00 ▶️"}, {"cat": "Assinaturas", "name": "HBO Max", "price": "7,50", "note": "Acesso por tela", "msg": "Quero HBO Max por R$ 7,50 🎬"}, {"cat": "Assinaturas", "name": "Prime Video", "price": "7,50", "note": "Acesso por tela", "msg": "Quero Prime Video por R$ 7,50 📦"}, {"cat": "Assinaturas", "name": "Paramount+", "price": "7,50", "note": "Acesso por tela", "msg": "Quero Paramount+ por R$ 7,50 ⭐"}, {"cat": "Assinaturas", "name": "Crunchyroll", "price": "7,00", "note": "Acesso por tela", "msg": "Quero Crunchyroll por R$ 7,00 🍥"}, {"cat": "Assinaturas", "name": "Globoplay (Básico)", "price": "10,00", "note": "Conta somente sua", "msg": "Quero Globoplay Básico (conta somente minha) por R$ 10,00 🇧🇷"}, {"cat": "Assinaturas", "name": "Globoplay Premium", "price": "15,00", "note": "Conta somente sua", "msg": "Quero Globoplay Premium (conta somente minha) por R$ 15,00 🇧🇷"}, {"cat": "Assinaturas", "name": "Globoplay Premium + Telecine", "price": "20,00", "note": "Conta somente sua", "msg": "Quero Globoplay Premium + Telecine por R$ 20,00 🎞️"}, {"cat": "Assinaturas", "name": "Tela Globoplay + Canais", "price": "7,00", "note": "Acesso por tela", "msg": "Quero Tela Globoplay + Canais por R$ 7,00 📺"}, {"cat": "Assinaturas", "name": "Apple TV+", "price": "12,00", "note": "Acesso por tela", "msg": "Quero Apple TV+ por R$ 12,00 🍏"}, {"cat": "Ferramentas", "name": "ChatGPT Premium", "price": "25,00", "note": "No seu e-mail • prazo máx. 24h", "msg": "Quero ChatGPT Premium (no meu e-mail) por R$ 25,00 🤖"}, {"cat": "Ferramentas", "name": "Gemini Premium", "price": "25,00", "note": "No seu e-mail", "msg": "Quero Gemini Premium (no meu e-mail) por R$ 25,00 ✨"}, {"cat": "Ferramentas", "name": "Canva", "price": "5,00", "note": "Acesso individual", "msg": "Quero Canva por R$ 5,00 🎨"}, {"cat": "Ferramentas", "name": "Canva Pro Vitalício", "price": "30,00", "note": "No seu e-mail", "msg": "Quero Canva Pro Vitalício (no meu e-mail) por R$ 30,00 🎨"}, {"cat": "Ferramentas", "name": "CapCut Pro", "price": "15,00", "note": "Acesso individual", "msg": "Quero CapCut Pro por R$ 15,00 ✂️"}, {"cat": "Ferramentas", "name": "Pacote Office (Convite)", "price": "15,00", "note": "Convite", "msg": "Quero Pacote Office (convite) por R$ 15,00 🖥️"}, {"cat": "Música", "name": "Deezer (Convite)", "price": "8,00", "note": "Convite", "msg": "Quero Deezer (convite) por R$ 8,00 🎵"}, {"cat": "TV & IPTV", "name": "Claro TV (Tela) + Premiere + Telecine + 12 ADC", "price": "16,00", "note": "Tela Claro TV", "msg": "Quero Claro TV (tela) Premiere + Telecine + 12 ADC por R$ 16,00 📺"}, {"cat": "TV & IPTV", "name": "IPTV", "price": "15,00", "note": "Roku • Samsung • Iphone • LG • AOC • Android • teste grátis 4h", "msg": "Quero IPTV por R$ 15,00 (teste grátis 4h) ⚡" cat: "Assinaturas",
+  name: "Disney (Tela)",
+  price: "13,00",
+  note: "Acesso individual",
+  msg: "Quero Disney Premium Tela Por R$ 13,00 R$" cat: "Assinaturas",
+  name: "Pacote +18 (Tela)",
+  price: "30,00",
+  note: "Acesso via drive e apps, Tufos,Hentai,Onlyfans etc...",
+  msg: "Quero Pacote +18 por R$ 30,00 R$" cat: "Ferramentas",
+  name: "Picsarte pro (Tela)",
+  price: "14,00",
+  note: "Acesso individual",
+  msg: "Quero Picsarte pro Por R$ 14,00 R$" cat: "Assinaturas",
+  name: "Hbo Max (Conta)",
+  price: "18,00",
+  note: "Conta Somente Sua!",
+  msg: "Quero Hbo Max Por R$ 18,00 R$" cat: "Assinaturas",
+  name: "Paramount+ (Conta)",
+  price: "18,00",
+  note: "Conta Somente Sua!",
+  msg: "Quero Paramount+ Por R$ 18,00 R$" cat: "Assinaturas",
+  name: "Prime Video (Conta)",
+  price: "18,00",
+  note: "Conta Somente Sua!",
+  msg: "Quero Prime Video Por R$ 18,00 R$" cat: "Assinaturas",
+  name: "Disney Padrão com anuncios(Conta)",
+  price: "19,00",
+  note: "Conta Somente Sua!",
+  msg: "Quero Disney Padrão Por R$ 19,00 R$" cat: "Assinaturas",
+  name: "Youtube Premium 3meses(Seu Email!)",
+  price: "25,00",
+  note: "No Seu Email!!",
+  msg: "Quero Youtube Premium 3meses Por R$ 25,00 R$"cat: "Assinaturas",
+  name: "PRIME VIDEO + HBO + CRUNCHYROLL(Acesso Por Tela!)",
+  price: "18,50",
+  note: "Acesso Por Tela!",
+  msg: "Quero PRIME VIDEO + HBO + CRUNCHYROLL Por R$ 18,50 R$"cat: "Assinaturas",
+  name: "VIKI RAKUTEN PLUS (Acesso Por Tela!)",
+  price: "9,50",
+  note: "Acesso Por Tela!",
+  msg: "VIKI RAKUTEN PLUS Por R$ 9,50 R$"}];
 
     function waLink(message) {
       return "https://wa.me/" + WHATS + "?text=" + encodeURIComponent(message);
@@ -282,3 +322,4 @@
   </script>
 </body>
 </html>
+
